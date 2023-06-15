@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 function CourseCatalog({ courses }) {
   return (
@@ -17,6 +19,14 @@ function CourseCatalog({ courses }) {
 
 }
 
+CourseCatalog.propTypes = {
+  courses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    description: PropTypes.string,
+  })).isRequired,
+  onCourseClick: PropTypes.func.isRequired,
+};
 export default CourseCatalog;
 
 // In this code, each course div has an onClick prop that calls the onCourseClick function with the current course as an argument. This will set 

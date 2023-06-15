@@ -6,10 +6,13 @@ function Login( { onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (onLogin(username, password)) {
-      navigate('/courses');
+    if(!username || !password) {
+      alert('Please enter a username and password');
+    } else {
+      onLogin(username, password);
     }
   };
 
