@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-rout
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Register from './components/Register';
 import Login from './components/Login';
 import CourseCatalog from './components/CourseCatalog';
 import CourseDetail from './components/CourseDetail'; 
@@ -10,40 +11,53 @@ import UserDashboard from './components/Dashboard';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [courses, setCourses] = useState([
     {id: 1, name: 'Course 1', description: 'This is course 1'},
     {id: 2, name: 'Course 2', description: 'This is course 2'}
   ]);
-  
-  const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const handleLogin = (username, password) => {
-    // For now, we'll "Log in" any user with any username and password
+  const handleRegister = (username, password) => {
+    //Check if a user with the given username already exits
+    if (users.some(user => user.username === username)) {
+      alert('Username already taken');
+      return;
+    }
+    // Add the new user to the users State
+    setUsers([...users, {username, password}]);
+
+    // Log in the new user
     setLoggedIn(true);
   };
   
-  const handleCourseClick = (course) => {
-    setSelectedCourse(course);
-  };
+  
 
-  function CourseDetail({ course }) {
-    // If course is undefined, return null
-    if (!course){
-      return null;
+  const handleLogin = (username, password) => {
+    const user = users.find(user => user.username === username && user.password === password)
+    if (user) {
+      setLoggedIn(true);
+      setCurrentUser(user); // You'll need to add a new state for this
+    } else {
+      alert('Incorrect username or password');
     }
-  }
+  };
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  // Replace this with the selected course from the Course Catalog
+  // replace this with the selected course from the course catalog 
+   
 
   const handleEnroll = (course) => {
-    setEnrolledCourses([...enrolledCourses, course]);
+    // Check if the course is already in the enrolledCourses array
+    if (!enrolledCourses.includes(course)) {
+      //if not, add it to the array
+      setEnrolledCourses([...enrolledCourses, course]);
+    }
+    
   };
 
+  
 
-  // Pass handleLogin as a prop to the Login component
-  <Login onLogin={handleLogin} />
 
 
   return (
@@ -51,6 +65,7 @@ function App() {
     <div className="App">
       <nav>
         <ul>
+        <li><Link to='/register'>Register</Link></li>
         <li><Link to='/login'>Login</Link></li>
         <li><Link to='/courses'>Course Catalog</Link></li>
         <li><Link to='/dashboard'>Your Dashboard</Link></li>
@@ -59,28 +74,28 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        {selectedCourse && <CourseDetail course={selectedCourse} />}
-
         <Routes>
+        <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
+
         <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
         
-        <Route path='/courses' element={<CourseCatalog courses={courses} onCourseClick={handleCourseClick}/>}/>    
+        <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
 
-        <Route path='/course/:id' element={<CourseDetail course={selectedCourse} onEnroll={handleEnroll} />}/>
+        <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
       
         <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
         </Routes>
 
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+           <code>Website underconstruction</code> .
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://fluxsquared.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Flux Squared
         </a>
       </header>
     </div>

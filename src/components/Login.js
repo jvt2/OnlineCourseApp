@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login( { onLogin }) {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Call the onlogin prop with the current username and password
-    onLogin(username, password);
+    if (onLogin(username, password)) {
+      navigate('/courses');
+    }
   };
 
   return (

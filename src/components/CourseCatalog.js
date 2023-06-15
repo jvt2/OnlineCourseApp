@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CourseCatalog({ courses, onCourseClick }) {
+function CourseCatalog({ courses }) {
   return (
     <div>
       <h2>Course Catalog</h2>
@@ -9,7 +9,7 @@ function CourseCatalog({ courses, onCourseClick }) {
         <div key={course.id}>
           <h3>{course.name}</h3>
           <p>{course.description}</p>
-          <Link onClick={() => onCourseClick(course)}>View Course</Link>
+          <Link to={`/course/${course.id}`}>View Course</Link>
         </div>
       ))}
     </div>
