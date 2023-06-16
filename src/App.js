@@ -8,8 +8,6 @@ import CourseCatalog from './components/CourseCatalog';
 import CourseDetail from './components/CourseDetail'; 
 import UserDashboard from './components/Dashboard';
 
-require('dotenv').config();
-
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
