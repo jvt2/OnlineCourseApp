@@ -63,11 +63,11 @@ function App() {
     <Router>
     <div className="App">
       <nav>
-        <ul>
-        <li><Link to='/register'>Register</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/courses'>Course Catalog</Link></li>
-        <li><Link to='/dashboard'>Your Dashboard</Link></li>
+        <ul className='navbar-nav'>
+        <li className='nav-item'><Link className='App-link' to='/register'>Register</Link></li>
+        <li className='nav-item'><Link className='App-link' to='/login'>Login</Link></li>
+        <li className='nav-item'><Link className='App-link' to='/courses'>Course Catalog</Link></li>
+        <li className='nav-item'><Link className='App-link' to='/dashboard'>Your Dashboard</Link></li>
         </ul>
       </nav>
       <header className="App-header">
@@ -111,3 +111,11 @@ export default App;
 // The enrolledCourses array is passed as a prop to the UserDashboard component, which will display the list of enrolled courses.
 
 // Please replace the selectedCourse with the actual selected course from the CourseCatalog as per your application's logic.
+
+// In this version of App.js, we've added the Login, CourseCatalog, CourseDetail, and UserDashboard components to the render method. We've also added a piece of state enrolledCourses to keep track of the courses that the user is enrolled in.
+
+// The handleEnroll function is passed as a prop to the CourseDetail component. When called, it adds the selected course to the enrolledCourses array.
+
+// The enrolledCourses array is passed as a prop to the UserDashboard component, which will display the list of enrolled courses.
+
+// Please replace the selectedCourse with the actual selected course from the CourseCatalog as per your application's logic
