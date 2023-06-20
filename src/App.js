@@ -7,6 +7,8 @@ import Login from './components/Login';
 import CourseCatalog from './components/CourseCatalog';
 import CourseDetail from './components/CourseDetail'; 
 import UserDashboard from './components/Dashboard';
+import ResumeUpload from './components/ResumeUpload';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -55,8 +57,6 @@ function App() {
     
   };
 
-  
-
 
 
   return (
@@ -74,6 +74,8 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
 
         <Routes>
+        <Route path='/upload-resume' element={<ResumeUpload />} />
+
         <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
 
         <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
