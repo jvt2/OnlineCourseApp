@@ -13,7 +13,7 @@ function Register({ onRegister }) {
         
         try {
             // Send a POST request to the server with the username and password
-            const response = await axios.post('/register', { username, password});
+            const response = await axios.post('http://localhost:3001/register', { username, password});
 
             //Handle response (this could be redirect, update UI , etc)
             console.log(response.data);

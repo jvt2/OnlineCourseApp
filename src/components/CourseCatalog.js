@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-
 function CourseCatalog({ courses }) {
   return (
     <div>
@@ -16,7 +15,6 @@ function CourseCatalog({ courses }) {
       ))}
     </div>
   );
-
 }
 
 CourseCatalog.propTypes = {
@@ -25,9 +23,10 @@ CourseCatalog.propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
   })).isRequired,
-  onCourseClick: PropTypes.func.isRequired,
 };
+
 export default CourseCatalog;
+
 
 // In this code, each course div has an onClick prop that calls the onCourseClick function with the current course as an argument. This will set 
 // the selectedCourse state in the App component to the clicked course, which will then be passed to the CourseDetail component to display its details.

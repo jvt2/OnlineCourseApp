@@ -4,17 +4,21 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const initializePassport = require('./passport-config');
+initializePassport(passport);
 const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require('./database/db');
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-initializePassport(passport, email => {
+// forgot password function later on we can use.
+//initializePassport(passport, email => {
   // Implement logic to retrieve user from database by email
-});
+//});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -39,10 +43,20 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 app.post('/register', async (req, res) => {
   try {
+    const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     // Save user in the database with hashedPassword
-    res.status(201).send('User Registered');
+    const query = 'INSERT INTO users (username, password) VALUES (?,?)';
+    db.query(query, [username, hashedPassword], (error, results) => {
+      if (error) {
+        console.error('Database Error:', error);
+        res.status(500).json({ message: 'Error Registering User'});
+      } else {
+        res.status(201).json({ message: 'User Registered' });
+      }
+    });
   } catch {
+    console.error(error);
     res.status(500).send('Error registering User');
   }
 });

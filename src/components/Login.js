@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Login( { onLogin }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!username || !password) {
-      alert('Please enter a username and password');
-    } else {
-      onLogin(username, password);
+
+    try {
+      // Send a POST request to the server with the username and password
+      const response = await axios.post('http://localhost:3001/login', { username, password });
+
+      // Handle response (store the toekn and redirect the user)
+      const token = response.data.token;
+      localStorage.setItem('token', token); // Store the token in local storage
+      navigate('/dashboard'); //Redirecting to dashboard
+    } catch (error) {
+      // Display error
+      setError(' Login failed. Please check your username and password.');
+      console.error(error);
     }
   };
 
@@ -21,12 +32,15 @@ function Login( { onLogin }) {
       <label>
         Username:
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      </label>
       <label>
         Password:
-        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      </label>
+      
       <input type="submit" value="Log in" />
+
+      {error && <div style={{ color: 'red' }}>{error}</div>}
     </form>
   );
 }

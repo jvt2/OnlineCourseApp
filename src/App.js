@@ -74,6 +74,8 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
 
         <Routes>
+        <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
+        
         <Route path='/upload-resume' element={<ResumeUpload />} />
 
         <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
