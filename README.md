@@ -3,7 +3,42 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+How to start online-course-app test environment
 
+Start the Server: First, make sure your MySQL server is running. Then, start your Express server by running node server.js in your terminal. Make sure there are no errors in the console.
+
+Start the React App: In a separate terminal window, navigate to your React app directory and start it using npm start or yarn start. This should open your app in a web browser.
+
+to connect SQL Shell
+TYPE
+
+ MySQL  JS > '\connect your_username@localhost'
+
+to change to out of js into sql
+
+\sql
+
+to show the tables in the db
+
+show tables;
+
+Now to view the table
+
+Run the following SQL query:
+
+SELECT * FROM mysql.table_name;
+
+This query will return all of the users in the MySQL user table.
+
+To check for a specific user, you can use the following SQL query:
+
+SELECT * FROM mysql.user WHERE user='username';
+
+Replace username with the name of the user you want to check.
+
+To filter the results, you can use the WHERE clause to specify the columns you want to return. For example, the following query will return the username, host, and password for all users:
+
+SELECT user, host, password FROM mysql.user;
 In the project directory, you can run:
 
 ### `npm start`
