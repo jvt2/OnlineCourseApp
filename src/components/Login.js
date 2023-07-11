@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 function Login( { onLogin }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       // Send a POST request to the server with the username and password
-      const response = await axios.post('http://localhost:3001/login', { username, password });
+      const response = await axios.post(`${apiUrl}/login`, { username, password });
 
       // Handle response (store the toekn and redirect the user)
       const token = response.data.token;
