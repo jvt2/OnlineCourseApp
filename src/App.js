@@ -8,7 +8,9 @@ import CourseCatalog from './components/CourseCatalog';
 import CourseDetail from './components/CourseDetail'; 
 import UserDashboard from './components/Dashboard';
 import ResumeUpload from './components/ResumeUpload';
-
+import Navbar from './components/Navbar';
+import { Provider } from 'react-redux';
+import store from './redux/store'; // import your Redux store here
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -60,49 +62,39 @@ function App() {
 
 
   return (
-    <Router>
-    <div className="App">
-      <nav>
-        <ul className='navbar-nav'>
-        <li className='nav-item'><Link className='App-link' to='/register'>Register</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/login'>Login</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/courses'>Course Catalog</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/dashboard'>Your Dashboard</Link></li>
-        </ul>
-      </nav>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
 
-        <Routes>
-        <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
-        
-        <Route path='/upload-resume' element={<ResumeUpload />} />
+            <Routes>
+              <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/dashboard/:userId' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/upload-resume' element={<ResumeUpload />} />
+              <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
+              <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
+              <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
+              <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
+              <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
+            </Routes>
 
-        <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
-
-        <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
-        
-        <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
-
-        <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
-      
-        <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
-        </Routes>
-
-        <p>
-           <code>Website underconstruction</code> .
-        </p>
-        <a
-          className="App-link"
-          href="https://fluxsquared.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Flux Squared
-        </a>
-      </header>
-    </div>
-    </Router>
+            <p>
+              <code>Website underconstruction</code> .
+            </p>
+            <a
+              className="App-link"
+              href="https://fluxsquared.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Flux Squared
+            </a>
+          </header>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
