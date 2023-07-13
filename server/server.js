@@ -1,3 +1,5 @@
+//server.js
+
 require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
@@ -10,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require('./database/db');
 const cors = require('cors');
+const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 app.use(cors());
 app.use(express.json());
@@ -19,6 +22,15 @@ app.use(passport.initialize());
 //initializePassport(passport, email => {
   // Implement logic to retrieve user from database by email
 //});
+
+const fs = require('fs');
+const path = require('path');
+
+// Create the uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -86,6 +98,36 @@ app.post('/uploadResume', upload.single('resume'), (req, res) => {
   console.log('File uploaded successfully');
   res.status(200).send('File uploaded successfully');
 });
+
+
+// getting recommendations from OpenAI API then serving them to the client side
+
+app.post('/getCourseRecommendations', async (req, res) => {
+  const { resumeText } = req.body;
+
+  try {
+    const response = await axios.post('https://api.openai.com/v1/models/text-davinci-003/completions', {
+      prompt: `From this resume: "${resumeText}" please give me 3 course recommendations that will help this person progress in their career path.`,
+      max_tokens: 3000 // Increase the number of tokens to get more detailed responses
+    }, {
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    // Map the choices to a simpler format
+    const recommendations = response.data.choices.map(choice => choice.text.trim());
+
+    // Return the course recommendations
+    res.json(recommendations);
+  } catch (error) {
+    console.error('Error getting course recommendations:', error);
+    res.status(500).json({ message: 'Error getting course recommendations' });
+  }
+});
+
+
 
 app.post('/enroll', (req, res) => {
   const { userId, courseId } = req.body;

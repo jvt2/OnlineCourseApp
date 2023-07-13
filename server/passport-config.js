@@ -1,3 +1,5 @@
+//passport-config.js
+
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const db = require('./database/db');
