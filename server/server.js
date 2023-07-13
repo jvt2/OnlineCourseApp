@@ -102,19 +102,25 @@ app.post('/uploadResume', upload.single('resume'), (req, res) => {
 
 // getting recommendations from OpenAI API then serving them to the client side
 
-app.post('/getCourseRecommendations', async (req, res) => {
+app.post('/getCourseRecommendations', async (req, res, next) => {
   const { resumeText } = req.body;
 
   try {
-    const response = await axios.post('https://api.openai.com/v1/models/text-davinci-003/completions', {
-      prompt: `From this resume: "${resumeText}" please give me 3 course recommendations that will help this person progress in their career path.`,
+    const response = await axios.post('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+      prompt: `From this resume: "${ resumeText }" please give me 3 course recommendations that will help this person progress in their career path.`,
       max_tokens: 3000 // Increase the number of tokens to get more detailed responses
     }, {
       headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer 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`,
         'Content-Type': 'application/json'
       }
     });
+
+    // Check if the OpenAI API returned an error
+    if (response.data.error) {
+      console.error('OpenAI API Error:', response.data.error);
+      return res.status(500).json({ message: 'Error getting course recommendations', error: response.data.error });
+    }
 
     // Map the choices to a simpler format
     const recommendations = response.data.choices.map(choice => choice.text.trim());
@@ -123,7 +129,7 @@ app.post('/getCourseRecommendations', async (req, res) => {
     res.json(recommendations);
   } catch (error) {
     console.error('Error getting course recommendations:', error);
-    res.status(500).json({ message: 'Error getting course recommendations' });
+    next(error); // Pass the error to the error handling middleware
   }
 });
 

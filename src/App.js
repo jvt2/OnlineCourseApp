@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store'; // import your Redux store here
 import Logout from './components/Logout'; // Import the Logout component
 import Chatbot from './components/Chatbot';
+import CourseRecommendations from './components/CourseRecommendations';
 import chatbotIcon from './flux_icon.png'; // Import image for chatbot
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
               <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
               <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
               <Route path='/logout' element={<Logout />} />
+              <Route path='/CourseRecommendations' element={<CourseRecommendations />} />
             </Routes>
           
             <p>

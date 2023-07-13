@@ -41,9 +41,11 @@ function ResumeUpload({ recommendations, setCourseRecommendations, handleSelectR
           console.log(`Sending prompt: "${text}"`);
   
           // Send the resume text to your server
-          const response = await axios.post('/getCourseRecommendations', {
+          console.log('About to send POST request to server...');
+          const response = await axios.post('http://localhost:3001/getCourseRecommendations', {
             resumeText: text
           });
+          console.log('POST request sent, response received.');
   
           // Return the course recommendations from the server response
           resolve(response.data);
@@ -52,10 +54,14 @@ function ResumeUpload({ recommendations, setCourseRecommendations, handleSelectR
           reject(error);
         }
       };
-      reader.onerror = reject;
+      reader.onerror = (error) => {
+        console.error('Error reading file:', error);
+        reject(error);
+      };
       reader.readAsArrayBuffer(file);
     });
   };
+  
   
 
   return (
