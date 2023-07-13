@@ -11,6 +11,9 @@ import ResumeUpload from './components/ResumeUpload';
 import Navbar from './components/Navbar';
 import { Provider } from 'react-redux';
 import store from './redux/store'; // import your Redux store here
+import Logout from './components/Logout'; // Import the Logout component
+import Chatbot from './components/Chatbot';
+import chatbotIcon from './flux_icon.png'; // Import image for chatbot
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -66,8 +69,10 @@ function App() {
       <Router>
         <div className="App">
           <Navbar />
+          <Chatbot />
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+            
 
             <Routes>
               <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
@@ -78,12 +83,14 @@ function App() {
               <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
               <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
               <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/logout' element={<Logout />} />
             </Routes>
-
+          
             <p>
               <code>Website underconstruction</code> .
             </p>
             <a
+            
               className="App-link"
               href="https://fluxsquared.com/"
               target="_blank"
