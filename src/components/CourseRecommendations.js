@@ -1,3 +1,5 @@
+//CourseRecommendations.js 
+
 import React from 'react';
 
 function CourseRecommendations({ recommendations, onSelect }) {
