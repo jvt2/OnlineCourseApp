@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
-import ResumeUpload from './ResumeUpload';
+// CourseCatalog.js
 
+// CourseCatalog.js
+
+import React, { useState, useEffect } from 'react';
+import ResumeUpload from './ResumeUpload';
+import CourseRecommendations from './CourseRecommendations';
 
 function CourseCatalog() {
-  const [courses, setCourses] = useState([]); // <-- Add this line
+  const [courses, setCourses] = useState([]); 
   const [courseRecommendations, setCourseRecommendations] = useState([]);
 
-  const handleSelectRecommendation = (recommendation) => {
-    // Create a new course object with the details of the recommended course
-    const newCourse = {
-      id: courses.length + 1, // Assign a new id
-      name: recommendation.text, // Use the recommendation text as the course name
-      description: 'This is a recommended course based on your resume.' // Add a description
-    };
-  
-    // Add the new course to the courses array
-    setCourses([...courses, newCourse]);
-  };
+  useEffect(() => {
+    console.log('CourseRecommendations state in CourseCatalog:', courseRecommendations);
+  }, [courseRecommendations]);
 
   return (
     <div>
       <h1>Course Catalog</h1>
       <ResumeUpload setCourseRecommendations={setCourseRecommendations} />
+      <CourseRecommendations recommendations={courseRecommendations} />
       <ul>
         {courses.map(course => (
           <li key={course.id}>
