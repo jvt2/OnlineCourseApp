@@ -2,11 +2,26 @@
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import CourseRecommendations from './CourseRecommendations';
 import { getDocument } from 'pdfjs-dist/build/pdf';
 import { PDFJSWorker } from 'pdfjs-dist/build/pdf.worker.entry';
-import { type } from '@testing-library/user-event/dist/type';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const DropzoneArea = styled.div`
+  border: 2px dashed ${props => props.theme.secondaryColor};
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: ${props => props.theme.borderRadius};
+  background-color: ${props => props.theme.bgColor};
+  color: ${props => props.theme.primaryTextColor};
+
+  &:hover {
+    border-color: ${props => props.theme.accentColor};
+    box-shadow: 0 0 10px ${props => props.theme.accentColor};
+  }
+`;
 
 function ResumeUpload({ setCourseRecommendations }) {
   const [fileName, setFileName] = useState(null);
@@ -16,19 +31,19 @@ function ResumeUpload({ setCourseRecommendations }) {
 
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
-    const newRecommendations = await uploadResume(file);
+    
     setFileName(file.name);
     setUploading(true);
     try {
-      await uploadResume(file);
+      const newRecommendations = await uploadResume(file);
+      
       setUploading(false);
       setUploadSuccess(true);
+      setCourseRecommendations(newRecommendations);
+      console.log('CourseRecommendations state in ResumeUpload after setCourseRecommendations:', newRecommendations);
     } catch (error) {
       console.error('Error in onDrop:', error);
     }
-    setCourseRecommendations(newRecommendations); // Set the course recommendations
-    console.log('CourseRecommendations state in ResumeUpload after setCourseRecommendations:', newRecommendations);
-
   };
 
   const uploadResume = (file) => {
@@ -92,13 +107,11 @@ function ResumeUpload({ setCourseRecommendations }) {
     <div>
       <Dropzone onDrop={onDrop}>
         {({ getRootProps, getInputProps }) => (
-          <section>
-            <div {...getRootProps()} style={{ border: '2px dashed #cccccc', padding: '20px', textAlign: 'center' }}>
+          <DropzoneArea {...getRootProps()}>
               <input {...getInputProps()} />
               <p>Drag 'n' drop your resume here, or click to select a file</p>
               {fileName && <p>Selected file: {fileName}</p>}
-            </div>
-          </section>
+          </DropzoneArea>
         )}
       </Dropzone>
       {uploading && <p>Uploading...</p>}
