@@ -66,6 +66,9 @@ function App() {
 
     // Add the new course to the enrolledCourses array
     setEnrolledCourses([...enrolledCourses, newCourse]);
+    // Close the modal
+    setIsModalOpen(false);
+    
   };
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
@@ -84,7 +87,11 @@ function App() {
     console.log('Recommendations state in App.js:', recommendations);
   };
   
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleRecommendations = (recs) => {
+    setRecommendations(recs);
+    setIsModalOpen(true);
+  };
 
   return (
     <Provider store={store}>
@@ -106,7 +113,7 @@ function App() {
               <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
               <Route path='/logout' element={<Logout />} />
               <Route path='/recommendations' element={<CourseRecommendations recommendations={recommendations} onSelect={handleEnroll} />} />
-
+              
             </Routes>
           
             <p>
@@ -122,6 +129,14 @@ function App() {
               Flux Squared
             </a>
           </header>
+          {recommendations && recommendations.length > 0 && (
+            <CourseRecommendations
+              recommendations={recommendations}
+              isOpen={isModalOpen}
+              onRequestClose={() => setIsModalOpen(false)}
+              onSelect={handleSelectRecommendation}
+            />
+          )}
         </div>
       </Router>
     </Provider>

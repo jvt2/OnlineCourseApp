@@ -1,24 +1,36 @@
-// CourseCatalog.js
-
-// CourseCatalog.js
-
 import React, { useState, useEffect } from 'react';
 import ResumeUpload from './ResumeUpload';
 import CourseRecommendations from './CourseRecommendations';
+import MyModal from './MyModal';
 
 function CourseCatalog() {
   const [courses, setCourses] = useState([]); 
   const [courseRecommendations, setCourseRecommendations] = useState([]);
+  const [showRecommendationsPopup, setShowRecommendationsPopup] = useState(false);
 
   useEffect(() => {
     console.log('CourseRecommendations state in CourseCatalog:', courseRecommendations);
   }, [courseRecommendations]);
 
+  const handleResumeUpload = (recommendations) => {
+    setCourseRecommendations(recommendations);
+    setShowRecommendationsPopup(true);
+  };
+
+  const closeRecommendationsPopup = () => {
+    setShowRecommendationsPopup(false);
+  };
+
   return (
     <div>
       <h1>Course Catalog</h1>
-      <ResumeUpload setCourseRecommendations={setCourseRecommendations} />
-      <CourseRecommendations recommendations={courseRecommendations} />
+      <ResumeUpload setCourseRecommendations={handleResumeUpload} />
+      <MyModal isOpen={showRecommendationsPopup} onClose={closeRecommendationsPopup}>
+        <CourseRecommendations 
+        recommendations={courseRecommendations}
+        onClose={closeRecommendationsPopup}
+        />
+      </MyModal>
       <ul>
         {courses.map(course => (
           <li key={course.id}>
@@ -32,6 +44,7 @@ function CourseCatalog() {
 }
 
 export default CourseCatalog;
+
 
 
 

@@ -17,6 +17,7 @@ const { body, validationResult } = require('express-validator');
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+const apiKey = process.env.OPENAI_API_KEY;
 
 // forgot password function later on we can use.
 //initializePassport(passport, email => {
@@ -111,7 +112,7 @@ app.post('/getCourseRecommendations', async (req, res, next) => {
       max_tokens: 3000 // Increase the number of tokens to get more detailed responses
     }, {
       headers: {
-        'Authorization': `Bearer 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`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       }
     });
