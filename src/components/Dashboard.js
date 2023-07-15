@@ -1,5 +1,6 @@
 import React from 'react';
 import './Dashboard.css';
+import { useParams } from 'react-router-dom';
 
 function UserDashboard({ courses }) {
   return (

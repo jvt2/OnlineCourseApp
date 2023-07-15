@@ -1,0 +1,79 @@
+/* Chatbot.css */
+
+.chatbot-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 400px;
+    z-index: 9999;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px 10px 0 0;
+    display: none; /* Initially hidden */
+  }
+  
+  .chatbot-open {
+    display: block; /* Shown when the chatbot is open */
+  }
+  
+  .chatbot-header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .chatbot-messages {
+    padding: 10px;
+    overflow-y: auto;
+    height: 80%;
+  }
+  
+  .chatbot-input-form {
+    padding: 10px;
+  }
+  
+  .chatbot-input {
+    width: 70%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .chatbot-button {
+    width: 25%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  
+  .chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    cursor: pointer;
+    border-radius: 50%; /* Makes the icon round */
+    width: 60px; /* Adjusts the size of the icon */
+    height: 60px; /* Adjusts the size of the icon */
+    overflow: hidden; /* Ensures the image fits within the round icon */
+  }
+
+  .chatbot-icon img {
+    width: 100%;
+    height: auto;
+  }
+  
+  
