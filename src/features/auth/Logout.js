@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logOut } from '../redux/reducers/userslice'; // Import the logOut action
+import { logOut } from '../../redux/reducers/userslice'; // Import the logOut action
 
 function Logout() {
   const navigate = useNavigate();

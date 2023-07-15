@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ResumeUpload from './ResumeUpload';
 import CourseRecommendations from './CourseRecommendations';
-import MyModal from './MyModal';
+import MyModal from '../../components/common/MyModal';
 
 function CourseCatalog() {
   const [courses, setCourses] = useState([]); 

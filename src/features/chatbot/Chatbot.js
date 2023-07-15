@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Chatbot.css'; // Import the CSS file
-import chatbotIcon from '../flux_icon.png'; // Import image for chatbot
+
 
 function Chatbot() {
   const [messages, setMessages] = useState([]);
@@ -54,7 +54,7 @@ function Chatbot() {
         </form>
       </div>
       <div className="chatbot-icon" onClick={() => setIsOpen(true)}>
-        <img src={chatbotIcon} alt="Chatbot" />
+        
       </div>
     </>
   );

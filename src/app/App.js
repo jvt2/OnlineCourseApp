@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Switch, Route, Link, Routes } from 'react-router-dom';
 import React, { useState } from 'react';
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import './App.css';
-import Register from './components/Register';
-import Login from './components/Login';
-import CourseCatalog from './components/CourseCatalog';
-import CourseDetail from './components/CourseDetail'; 
-import UserDashboard from './components/Dashboard';
-import ResumeUpload from './components/ResumeUpload';
-import Navbar from './components/Navbar';
+import Register from '../features/auth/Register';
+import Login from '../features/auth/Login';
+import CourseCatalog from '../features/courses/CourseCatalog';
+import CourseDetail from '../features/courses/CourseDetail'; 
+import UserDashboard from '../features/dashboard/Dashboard';
+import ResumeUpload from '../features/courses/ResumeUpload';
+import Navbar from '../components/common/Navbar';
 import { Provider } from 'react-redux';
-import store from './redux/store'; // import your Redux store here
-import Logout from './components/Logout'; // Import the Logout component
-import Chatbot from './components/Chatbot';
-import CourseRecommendations from './components/CourseRecommendations';
-import chatbotIcon from './flux_icon.png'; // Import image for chatbot
+import store from '../redux/store'; // import your Redux store here
+import Logout from '../features/auth/Logout'; // Import the Logout component
+import Chatbot from '../features/chatbot/Chatbot';
+import CourseRecommendations from '../features/courses/CourseRecommendations';
+
 
 
 

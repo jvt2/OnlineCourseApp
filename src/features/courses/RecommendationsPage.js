@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseRecommendations from './CourseRecommendations';
+import CourseRecommendations from '../../components/CourseRecommendations';
 
 function RecommendationsPage({ recommendations, onSelect }) {
   return (
