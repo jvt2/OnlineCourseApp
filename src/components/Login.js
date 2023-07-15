@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { logIn } from '../redux/reducers/userslice'; // Import the logIn action
 
 function Login( { onLogin }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -20,12 +22,15 @@ function Login( { onLogin }) {
       // Handle response (store the toekn and redirect the user)
       const token = response.data.token;
       localStorage.setItem('token', token); // Store the token in local storage
+      dispatch(logIn({ name: username })); // Dispatch the logIn action
       navigate('/dashboard'); //Redirecting to dashboard
     } catch (error) {
       // Display error
       setError(' Login failed. Please check your username and password.');
       console.error(error);
     }
+    dispatch(logIn({ name: username })); // Dispatch the logIn action
+
   };
 
   return (

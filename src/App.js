@@ -8,12 +8,21 @@ import CourseCatalog from './components/CourseCatalog';
 import CourseDetail from './components/CourseDetail'; 
 import UserDashboard from './components/Dashboard';
 import ResumeUpload from './components/ResumeUpload';
+import Navbar from './components/Navbar';
+import { Provider } from 'react-redux';
+import store from './redux/store'; // import your Redux store here
+import Logout from './components/Logout'; // Import the Logout component
+import Chatbot from './components/Chatbot';
+import CourseRecommendations from './components/CourseRecommendations';
+import chatbotIcon from './flux_icon.png'; // Import image for chatbot
+
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [courses, setCourses] = useState([
     {id: 1, name: 'Course 1', description: 'This is course 1'},
     {id: 2, name: 'Course 2', description: 'This is course 2'}
@@ -31,8 +40,7 @@ function App() {
     // Log in the new user
     setLoggedIn(true);
   };
-  
-  
+   
 
   const handleLogin = (username, password) => {
     const user = users.find(user => user.username === username && user.password === password)
@@ -43,6 +51,25 @@ function App() {
       alert('Incorrect username or password');
     }
   };
+  const handleSelectRecommendation = (recommendation) => {
+    // Create a new course object with the details of the recommended course
+    console.log('Passing recommendations to CourseRecommendations:', recommendations);
+
+    const newCourse = {
+      id: courses.length + 1, // Assign a new id
+      name: recommendation.text, // Use the recommendation text as the course name
+      description: 'This is a recommended course based on your resume.' // Add a description
+    };
+  
+    // Add the new course to the courses array
+    setCourses([...courses, newCourse]);
+
+    // Add the new course to the enrolledCourses array
+    setEnrolledCourses([...enrolledCourses, newCourse]);
+    // Close the modal
+    setIsModalOpen(false);
+    
+  };
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   // replace this with the selected course from the course catalog 
@@ -51,75 +78,70 @@ function App() {
   const handleEnroll = (course) => {
     // Check if the course is already in the enrolledCourses array
     if (!enrolledCourses.includes(course)) {
-      //if not, add it to the array
+      // If not, add it to the array
       setEnrolledCourses([...enrolledCourses, course]);
     }
     
+    // This will log the recommendations state just before it's passed to the CourseRecommendations component. If the recommendations array is still empty at this point, it means that the state is not being updated correctly in the uploadResume function. If the recommendations array contains the expected data, it means that the state is being updated correctly but not passed correctly to the CourseRecommendations component.
+    console.log('Passing recommendations to CourseRecommendations:', recommendations);
+    console.log('Recommendations state in App.js:', recommendations);
+  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleRecommendations = (recs) => {
+    setRecommendations(recs);
+    setIsModalOpen(true);
   };
 
-
-
   return (
-    <Router>
-    <div className="App">
-      <nav>
-        <ul className='navbar-nav'>
-        <li className='nav-item'><Link className='App-link' to='/register'>Register</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/login'>Login</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/courses'>Course Catalog</Link></li>
-        <li className='nav-item'><Link className='App-link' to='/dashboard'>Your Dashboard</Link></li>
-        </ul>
-      </nav>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Chatbot />
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            
 
-        <Routes>
-        <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
-        
-        <Route path='/upload-resume' element={<ResumeUpload />} />
-
-        <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
-
-        <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
-        
-        <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
-
-        <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
-      
-        <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
-        </Routes>
-
-        <p>
-           <code>Website underconstruction</code> .
-        </p>
-        <a
-          className="App-link"
-          href="https://fluxsquared.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Flux Squared
-        </a>
-      </header>
-    </div>
-    </Router>
+            <Routes>
+              <Route exact path='/' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/dashboard/:userId' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
+              <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
+              <Route path='/courses' element={<CourseCatalog courses={courses}/>}/>    
+              <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
+              <Route path='/dashboard' element={<UserDashboard courses={enrolledCourses} />}/>
+              <Route path='/logout' element={<Logout />} />
+              <Route path='/recommendations' element={<CourseRecommendations recommendations={recommendations} onSelect={handleEnroll} />} />
+              
+            </Routes>
+          
+            <p>
+              <code>Website underconstruction</code> .
+            </p>
+            <a
+            
+              className="App-link"
+              href="https://fluxsquared.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Flux Squared
+            </a>
+          </header>
+          {recommendations && recommendations.length > 0 && (
+            <CourseRecommendations
+              recommendations={recommendations}
+              isOpen={isModalOpen}
+              onRequestClose={() => setIsModalOpen(false)}
+              onSelect={handleSelectRecommendation}
+            />
+          )}
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
 export default App;
 
-// In this version of App.js, we've added the Login, CourseCatalog, CourseDetail, and UserDashboard components to the render method. We've also added a piece of state enrolledCourses to keep track of the courses that the user is enrolled in.
-
-// The handleEnroll function is passed as a prop to the CourseDetail component. When called, it adds the selected course to the enrolledCourses array.
-
-// The enrolledCourses array is passed as a prop to the UserDashboard component, which will display the list of enrolled courses.
-
-// Please replace the selectedCourse with the actual selected course from the CourseCatalog as per your application's logic.
-
-// In this version of App.js, we've added the Login, CourseCatalog, CourseDetail, and UserDashboard components to the render method. We've also added a piece of state enrolledCourses to keep track of the courses that the user is enrolled in.
-
-// The handleEnroll function is passed as a prop to the CourseDetail component. When called, it adds the selected course to the enrolledCourses array.
-
-// The enrolledCourses array is passed as a prop to the UserDashboard component, which will display the list of enrolled courses.
-
-// Please replace the selectedCourse with the actual selected course from the CourseCatalog as per your application's logic
