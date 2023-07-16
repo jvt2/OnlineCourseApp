@@ -16,8 +16,6 @@ import Chatbot from '../features/chatbot/Chatbot';
 import CourseRecommendations from '../features/courses/CourseRecommendations';
 
 
-
-
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);

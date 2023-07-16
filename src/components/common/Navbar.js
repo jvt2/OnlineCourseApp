@@ -1,32 +1,44 @@
-// Navbar.js
+// Navbar.js 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
-  const loggedIn = useSelector(state => state.user.loggedIn);
+  const loggedIn = useSelector(state => state.user ? state.user.loggedIn : false);
+  console.log('loggedIn:', loggedIn);
+  console.log('Type of loggedIn:', typeof loggedIn);
 
-console.log('loggedIn:', loggedIn);
 
   return (
-    <nav>
-      <ul className='navbar-nav'>
-        <li className='nav-item'><Link className='App-link' to='/courses'>Course Catalog</Link></li>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
+          <Button color="inherit" component={RouterLink} to='/courses'>Course Catalog</Button>
+        </Typography>
         {loggedIn ? (
           <>
             {/* The user is logged in, show the dashboard and logout options */}
-            <li className='nav-item'><Link className='App-link' to='/dashboard'>Your Dashboard</Link></li>
-            <li className='nav-item'><Link className='App-link' to='/logout'>Logout</Link></li>
+            <Button color="inherit" component={RouterLink} to='/dashboard'>Your Dashboard</Button>
+            <Button color="inherit" component={RouterLink} to='/logout'>Logout</Button>
           </>
         ) : (
           <>
             {/* The user is not logged in, show the register and login options */}
-            <li className='nav-item'><Link className='App-link' to='/register'>Register</Link></li>
-            <li className='nav-item'><Link className='App-link' to='/login'>Login</Link></li>
+            <Button color="inherit" component={RouterLink} to='/register'>Register</Button>
+            <Button color="inherit" component={RouterLink} to='/login'>Login</Button>
           </>
         )}
-      </ul>
-    </nav>
+      </Toolbar>
+    </AppBar>
   );
 }
 

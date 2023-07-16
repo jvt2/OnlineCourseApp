@@ -2,7 +2,10 @@ import React from 'react';
 import Modal from 'react-modal';
 
 // This line is necessary for accessibility reasons
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') {
+  Modal.setAppElement('#root');
+}
+;
 
 function MyModal({ isOpen, onClose, children }) {
   return (
