@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/reducers/userslice'; // Import the logIn action
 
-
 function Login( { onLogin }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ function Login( { onLogin }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const apiUrl = process.env.REACT_APP_API_URL;
-  console.log(process.env.REACT_APP_API_URL);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 

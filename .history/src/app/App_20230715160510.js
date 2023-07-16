@@ -16,6 +16,8 @@ import Chatbot from '../features/chatbot/Chatbot';
 import CourseRecommendations from '../features/courses/CourseRecommendations';
 
 
+console.log(process.env.NODE_ENV)
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);

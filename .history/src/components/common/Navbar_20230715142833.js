@@ -1,4 +1,4 @@
-// Navbar.js 
+// Navbar.
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,7 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
-  const loggedIn = useSelector(state => state.user ? state.user.loggedIn : false);
+  const loggedIn = useSelector(state => state.user.loggedIn);
+
   console.log('loggedIn:', loggedIn);
   console.log('Type of loggedIn:', typeof loggedIn);
 

@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
   const loggedIn = useSelector(state => state.user ? state.user.loggedIn : false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   console.log('loggedIn:', loggedIn);
   console.log('Type of loggedIn:', typeof loggedIn);
 

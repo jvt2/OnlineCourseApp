@@ -63,27 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/preset-env": "^7.22.9",
-    "@babel/preset-react": "^7.22.5",
-    "babel-jest": "^29.6.1",
-    "identity-obj-proxy": "^3.0.0",
-    "jest-svg-transformer": "^1.0.0",
-    "jest-transform-stub": "^2.0.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.svg$": "jest-transform-stub"
-    },
-    "transformIgnorePatterns": [
-      "/node_modules/(?!axios)"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|less|scss|sss|styl)$": "identity-obj-proxy"
-    }
   }
 }
