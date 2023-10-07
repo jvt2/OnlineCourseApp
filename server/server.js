@@ -76,10 +76,10 @@ app.post('/register', [
         res.status(201).json({ message: 'User Registered' });
       }
     });
-  } catch {
+  } catch (error) {
     console.error(error);
     res.status(500).send('Error registering User');
-  }
+  }  
 });
 
 app.post('/login', [
