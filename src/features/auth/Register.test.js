@@ -1,46 +1,37 @@
-// Register.test.js
-import '@testing-library/jest-dom';
-import { render, fireEvent, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'; // Import waitFor function
 import { Provider } from 'react-redux';
-import store from '../../redux/store'; // replace with actual path to your Redux store
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './Register';
+import Login from './Login'; // Import Login component for testing
+import store from '../../redux/store';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import '@testing-library/jest-dom';
+const mock = new MockAdapter(axios);
 
-test('renders Register form', () => {
+// Place the mock setup before the test to ensure it intercepts the request correctly
+mock.onPost('http://localhost:3001/register').reply(200, { message: 'User Registered' });
+
+test('register user and show login', async () => {
   render(
     <Provider store={store}>
       <Router>
-        <Register />
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </Router>
     </Provider>
   );
 
-  const usernameInput = screen.getByLabelText(/username/i);
-  const passwordInput = screen.getByLabelText(/Password:/i);
-  const submitButton = screen.getByRole('button', { name: /Register/i });
+  fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'testuser' } });
+  fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'testpassword' } });
 
-  expect(usernameInput).toBeInTheDocument();
-  expect(passwordInput).toBeInTheDocument();
-  expect(submitButton).toBeInTheDocument();
-});
+  fireEvent.click(screen.getByText(/register/i));
 
-test('allows the user to fill out the form', () => {
-  render(
-    <Provider store={store}>
-      <Router>
-        <Register />
-      </Router>
-    </Provider>
-  );
-
-  const usernameInput = screen.getByLabelText(/username/i);
-  const passwordInput = screen.getByLabelText(/Password:/i);
-  const submitButton = screen.getByRole('button', { name: /Register/i });
-
-  fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-  fireEvent.change(passwordInput, { target: { value: 'testpass' } });
-  fireEvent.click(submitButton);
-
-  expect(usernameInput.value).toBe('testuser');
-  expect(passwordInput.value).toBe('testpass');
+  // Use waitFor to handle asynchronous operations
+  await waitFor(() => {
+    expect(screen.getByText(/login/i)).toBeInTheDocument();
+  });
 });

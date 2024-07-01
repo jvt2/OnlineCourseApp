@@ -1,25 +1,26 @@
-import React from 'react';
-import './Dashboard.css';
-import { useParams } from 'react-router-dom';
+// src/features/dashboard/Dashboard.js
 
-function UserDashboard({ courses }) {
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+function Dashboard() {
+  const enrolledCourses = useSelector(state => state.user.enrolledCourses);
+
   return (
-    <div className='dashboard-container'>
-      <h2 className='dashboard-header'>Your Courses</h2>
-      <div className='course-list'>
-        {courses.length > 0 ? (
-          courses.map(course => (
-            <div className='course-item' key={course.id}>
-              <h3 className="course-title">{course.name}</h3>
-              <p>{course.description}</p>
-            </div> 
-          ))
-        ) : (
-          <p>You are not enrolled in any courses.</p>
-        )}
-      </div>
+    <div>
+      <h2>Your Courses</h2>
+      {enrolledCourses.length > 0 ? (
+        <ul>
+          {enrolledCourses.map(course => (
+            <li key={course.id}>{course.name}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>You are not enrolled in any courses.</p>
+      )}
     </div>
   );
 }
 
-export default UserDashboard;
+export default Dashboard;
+

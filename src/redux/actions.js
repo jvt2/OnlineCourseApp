@@ -1,9 +1,20 @@
-// redux/actions.js
+// src/redux/actions.js
 
-export const LOGIN = 'LOGIN';
+export const logIn = (user) => ({
+  type: 'LOG_IN',
+  payload: user,
+});
 
-export const login = () => {
-  return {
-    type: LOGIN
-  };
-};
+export const logOut = () => ({
+  type: 'LOG_OUT',
+});
+
+export const setEnrolledCourses = (courses) => ({
+  type: 'SET_ENROLLED_COURSES',
+  payload: courses,
+});
+
+export const enrollCourse = (course) => ({
+  type: 'ENROLL_COURSE',
+  payload: course,
+});

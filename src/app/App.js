@@ -14,6 +14,7 @@ import store from '../redux/store'; // import your Redux store here
 import Logout from '../features/auth/Logout'; // Import the Logout component
 import Chatbot from '../features/chatbot/Chatbot';
 import CourseRecommendations from '../features/courses/CourseRecommendations';
+import axios from 'axios';
 
 
 function App() {
@@ -26,29 +27,51 @@ function App() {
     {id: 2, name: 'Course 2', description: 'This is course 2'}
   ]);
 
-  const handleRegister = (username, password) => {
-    //Check if a user with the given username already exits
-    if (users.some(user => user.username === username)) {
-      alert('Username already taken');
-      return;
+  const handleRegister = async (username, password) => {
+    try {
+      const response = await axios.post('http://localhost:3001/register', { username, password});
+      alert(response.data.messsage);
+      // Log inthe new user if registration is successful
+      handleLogin(username, password);
+    } catch (error) {
+      alert(error.response.data.messsage);
     }
-    // Add the new user to the users State
-    setUsers([...users, {username, password}]);
-
-    // Log in the new user
-    setLoggedIn(true);
   };
    
 
-  const handleLogin = (username, password) => {
-    const user = users.find(user => user.username === username && user.password === password)
-    if (user) {
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await axios.post('http://localhost:3001/login', { username, password });
+      localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
-      setCurrentUser(user); // You'll need to add a new state for this
-    } else {
-      alert('Incorrect username or password');
+      setCurrentUser({ username });
+    } catch (error) {
+      alert('Login failed. Please check your username and password.');
     }
   };
+
+    
+
+  const handleEnroll = async (course) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:3001/enroll', { courseId: course.id }, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setEnrolledCourses([...enrolledCourses, course]);
+    } catch (error) {
+      console.error('Enrollment failed', error);
+    }
+  };
+
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleRecommendations = (recs) => {
+    setRecommendations(recs);
+    setIsModalOpen(true);
+  };
+
   const handleSelectRecommendation = (recommendation) => {
     // Create a new course object with the details of the recommended course
     console.log('Passing recommendations to CourseRecommendations:', recommendations);
@@ -67,28 +90,6 @@ function App() {
     // Close the modal
     setIsModalOpen(false);
     
-  };
-
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
-  // replace this with the selected course from the course catalog 
-   
-
-  const handleEnroll = (course) => {
-    // Check if the course is already in the enrolledCourses array
-    if (!enrolledCourses.includes(course)) {
-      // If not, add it to the array
-      setEnrolledCourses([...enrolledCourses, course]);
-    }
-    
-    // This will log the recommendations state just before it's passed to the CourseRecommendations component. If the recommendations array is still empty at this point, it means that the state is not being updated correctly in the uploadResume function. If the recommendations array contains the expected data, it means that the state is being updated correctly but not passed correctly to the CourseRecommendations component.
-    console.log('Passing recommendations to CourseRecommendations:', recommendations);
-    console.log('Recommendations state in App.js:', recommendations);
-  };
-  
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleRecommendations = (recs) => {
-    setRecommendations(recs);
-    setIsModalOpen(true);
   };
 
   return (

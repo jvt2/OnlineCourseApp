@@ -67,14 +67,24 @@ app.post('/register', [
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     // Save user in the database with hashedPassword
-    const query = 'INSERT INTO users (username, password) VALUES (?,?)';
-    db.query(query, [username, hashedPassword], (error, results) => {
-      if (error) {
-        console.error('Database Error:', error);
-        res.status(500).json({ message: 'Error Registering User'});
-      } else {
-        res.status(201).json({ message: 'User Registered' });
+    const checkQuery = 'SELECT * FROM users WHERE username = ?';
+    
+    db.query(checkQuery, [username], (checkError, checkResults) => {
+      if (checkError) {
+        console.error('Database Error:', checkError);
+        return res.status(500).json({ message: 'Error checking for existing user' });
       }
+      if (checkResults.length > 0) {
+        return res.status(400).json({ message: 'Username already taken' });
+      }
+      const insertQuery = 'INSERT INTO users (username, password) VALUES (?,?)';
+      db.query(insertQuery, [username, hashedPassword], (insertError, insertResults) => {
+        if (insertError) {
+          console.error('Database Error:', insertError);
+          return res.status(500).json({ message: 'Error Registering User' });
+        }
+        return res.status(201).json({ message: 'User Registered' });
+      });
     });
   } catch (error) {
     console.error(error);
