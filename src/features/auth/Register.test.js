@@ -8,12 +8,16 @@ import store from '../../redux/store';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import '@testing-library/jest-dom';
+import { userAgent } from 'next/server';
+import { Email, Password } from '@mui/icons-material';
 const mock = new MockAdapter(axios);
 
 // Place the mock setup before the test to ensure it intercepts the request correctly
-mock.onPost('http://localhost:3001/register').reply(200, { message: 'User Registered' });
+// Mock the whole axios module
+jest.mock('axios');
 
 test('register user and show login', async () => {
+  axios.post.mockResolvedValue({ data: { message: 'User Registered' } });
   render(
     <Provider store={store}>
       <Router>
@@ -26,12 +30,22 @@ test('register user and show login', async () => {
   );
 
   fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'testuser' } });
+  fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'testuser@example.com' } });
   fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'testpassword' } });
 
-  fireEvent.click(screen.getByText(/register/i));
+  fireEvent.click(screen.getByRole('button', { name: /register/i }));
 
   // Use waitFor to handle asynchronous operations
   await waitFor(() => {
+    expect(axios.post).toHaveBeenCalledWith('http://localhost:3001/register', {
+      username: 'testuser',
+      email: 'testuser@example.com',
+      password: 'testpassword'
+    });
+  });
+  
+  await waitFor(() => {
+    // assuming the registration is successful, the user should be redirected to the login page
     expect(screen.getByText(/login/i)).toBeInTheDocument();
   });
 });

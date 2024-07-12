@@ -2,10 +2,16 @@
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import { getDocument } from 'pdfjs-dist/build/pdf';
+
 import { PDFJSWorker } from 'pdfjs-dist/build/pdf.worker.entry';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+
+
+// Set workerSrc for pdfjs
+pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJSWorker;
 
 const DropzoneArea = styled.div`
   border: 2px dashed ${props => props.theme.secondaryColor};
@@ -53,7 +59,7 @@ function ResumeUpload({ setCourseRecommendations }) {
         try {
           const arrayBuffer = event.target.result;
           const typedArray = new Uint8Array(arrayBuffer);
-          const pdf = await getDocument({ data: typedArray }).promise;
+          const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
           let text = '';
           for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
@@ -65,50 +71,45 @@ function ResumeUpload({ setCourseRecommendations }) {
   
           // Send the resume text to your server
           console.log('About to send POST request to server...');
-          const response = await axios.post('http://localhost:3001/getCourseRecommendations', {
-            resumeText: text
+          const response = await axios.post('http://localhost:3001/courses', {
+            resumeText: text 
+            
           });
           console.log('POST request sent, response received.');
           console.log('Server response:', response.data); // Log the server response
 
-          // Parse the server response into an array of recommendation objects
-          const parsedRecommendations = response.data[0].split('\n').map((recommendation, index) => {
+         // Parse the server response into an array of recommendation objects
+         if (response.status === 200) {
+          const parsedRecommendations = response.data.map((recommendation, index) => {
             return { id: index, text: recommendation };
           });
 
-          // To see if Recommendations are being parsed correctly.
-          console.log('Parsed recommendations:', parsedRecommendations);
-
-          // Store the parsed recommendations in the state
-          setCourseRecommendations(parsedRecommendations, () => {
-            // Recommendations State after setCourseRecommendations
-            console.log('Recommendations state after setCourseRecommendations:', parsedRecommendations);
-
-            // Redirect to the user to CourseRecommendations option
-            navigate('/recommendations');
-          });
-
-        } catch (error) {
-          console.error('Error uploading resume:', error);
-          reject(error);
+      
+          resolve(parsedRecommendations);
+        } else {
+          throw new Error(response.data.message || 'Error getting recommendations');
         }
-      };
-      reader.onerror = (error) => {
-        console.error('Error reading file:', error);
+      } catch (error) {
+        console.error('Error uploading resume:', error);
         reject(error);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  };
+      }
+    };
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+      reject(error);
+    };
+    reader.readAsArrayBuffer(file);
+  });
+};
   
   
-
+// Data test id
   return (
     <div>
       <Dropzone onDrop={onDrop}>
         {({ getRootProps, getInputProps }) => (
           <DropzoneArea {...getRootProps()}>
-              <input {...getInputProps()} />
+              <input {...getInputProps()} data-testid="file-input" />
               <p>Drag 'n' drop your resume here, or click to select a file</p>
               {fileName && <p>Selected file: {fileName}</p>}
           </DropzoneArea>
