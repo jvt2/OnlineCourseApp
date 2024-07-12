@@ -1,22 +1,28 @@
+//CourseDetails.js
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import axios from 'axios';
 
 function CourseDetail({ courses, onEnroll }) {
   const { id } = useParams();
   const course = courses.find(course => course.id === Number(id));
   
   const [enrolled, setEnrolled] = useState(false);
-  // if no course is found, return null
+
   if (!course) {
-    return null;
+    return <p>Course not found</p>;
   }
 
-
-  const handleEnroll = () => {
-    setEnrolled(true);
-    alert(`Enrolled in ${course.name}`);
-    onEnroll(course);
+  const handleEnroll = async () => {
+    try {
+      await axios.post('http://localhost:3001/enrollments', { courseId: course.id });
+      setEnrolled(true);
+      alert(`Enrolled in ${course.name}`);
+      onEnroll(course);
+    } catch (error) {
+      console.log('Error enrolling in course: ', error);
+    }
   };
 
   return (

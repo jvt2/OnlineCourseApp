@@ -1,3 +1,5 @@
+//CourseCatalog.js
+
 import React, { useState, useEffect } from 'react';
 import ResumeUpload from './ResumeUpload';
 import CourseRecommendations from './CourseRecommendations';
@@ -9,10 +11,20 @@ function CourseCatalog() {
   const [showRecommendationsPopup, setShowRecommendationsPopup] = useState(false);
 
   useEffect(() => {
-    console.log('CourseRecommendations state in CourseCatalog:', courseRecommendations);
-  }, [courseRecommendations]);
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/courses');
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.log('Error fetching courses:', error);
+      }
+    };
+    fetchCourses();
+  }, []);
 
   const handleResumeUpload = (recommendations) => {
+    console.log('Recommendations received in handleResumeUpload:', recommendations);
     setCourseRecommendations(recommendations);
     setShowRecommendationsPopup(true);
   };
@@ -25,6 +37,11 @@ function CourseCatalog() {
     <div>
       <h1>Course Catalog</h1>
       <ResumeUpload setCourseRecommendations={handleResumeUpload} />
+      {showRecommendationsPopup && (
+        <CourseRecommendations 
+          recommendations={courseRecommendations}
+        />
+      )}
       <MyModal isOpen={showRecommendationsPopup} onClose={closeRecommendationsPopup}>
         <CourseRecommendations 
         recommendations={courseRecommendations}
@@ -44,7 +61,6 @@ function CourseCatalog() {
 }
 
 export default CourseCatalog;
-
 
 
 

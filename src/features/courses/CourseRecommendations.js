@@ -1,64 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+// src/features/courses/CourseRecommendations.js
+import React from 'react';
+import { Box, Typography, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { styled } from '@mui/system';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-`;
 
-const Heading = styled.h2`
-  margin-bottom: 20px;
-`;
+const CourseImage = styled(CardMedia)({
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  borderRadius: '8px',
+  width: '100%',
+  height: 0,
+  paddingBottom: '56.25%', // 16:9 aspect ratio
+});
 
-const Recommendation = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #ffffff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  width: 100%;
-`;
-
-const Text = styled.p`
-  margin: 0;
-`;
-
-const Button = styled.button`
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  :hover {
-    background-color: #0056b3;
-  }
-`;
-
-function CourseRecommendations({ recommendations, onSelect }) {
-  const [localRecommendations, setLocalRecommendations] = useState([]);
-
-  useEffect(() => {
-    console.log('Recommendations prop changed:', recommendations);
-    setLocalRecommendations(recommendations);
-  }, [recommendations]);
+function CourseRecommendations({ recommendations }) {
+  console.log('Rendering CourseRecommendations with props:', recommendations); // Log the props
 
   return (
-    <Container>
-      <Heading>Course Recommendations</Heading>
-      {localRecommendations.map((recommendation, index) => (
-        <Recommendation key={index}>
-          <Text>{recommendation.text}</Text>
-          <Button onClick={() => onSelect(recommendation)}>Add to my courses</Button>
-        </Recommendation>
-      ))}
-    </Container>
+    <Box p={4} bgcolor="background.paper" minHeight="100vh">
+      <Typography variant="h5" fontWeight="bold" mb={2} color="primary">
+        Recommended for you
+      </Typography>
+      {recommendations && recommendations.length > 0 ? (
+        recommendations.map((course, index) => (
+          <Card key={index} elevation={3} sx={{ mb: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <CardContent>
+              <Typography variant="h6" fontWeight="bold" mb={1} color="secondary">
+                {course.text.title}  {/* Accessing the title within the nested text object */}
+              </Typography>
+              <Typography variant="body1" color="textSecondary">
+                {course.text.description}  {/* Accessing the description within the nested text object */}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <Typography variant="body1" color="textSecondary">No recommendations available.</Typography>
+      )}
+      <Button variant="outlined" fullWidth>
+        View more recommendations
+      </Button>
+    </Box>
   );
 }
 
