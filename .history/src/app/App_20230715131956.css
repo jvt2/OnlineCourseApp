@@ -1,0 +1,172 @@
+/* App.css */
+/* Define variables */
+:root {
+  --primary-bg-color: #1E1E2F;
+  --secondary-bg-color: #282840;
+  --primary-text-color: #F5F5F5;
+  --link-color: #61dafb;
+  --accent-color: #FF6B6B;
+  --navbar-height: 4rem;
+  --content-padding: 20px;
+  --border-radius: 8px;
+  --transition-duration: 0.3s;
+  --gradient-bg-color: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+/* General App styles */
+.App {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--primary-bg-color);
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px var(--accent-color));
+}
+
+.App-header {
+  background-color: var(--secondary-bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--primary-text-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.App-link {
+  color: var(--link-color);
+  transition: color var(--transition-duration);
+}
+
+.App-link:hover {
+  color: var(--accent-color);
+}
+
+/* Logo animation */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+/* Navbar styles */
+.site-navbar {
+  display: flex;
+  align-items: center;
+  background: var(--gradient-bg-color);
+  padding: 10px 20px;
+  height: var(--navbar-height);
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--primary-text-color);
+  padding: 15px 25px;
+  transition: all 0.3s ease-in-out;
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.nav-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: var(--border-radius);
+  transition: width 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.nav-item:hover:before {
+  width: 100%;
+}
+
+.nav-item:hover {
+  color: var(--secondary-bg-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.navbar-brand {
+  margin-right: auto;
+  color: var(--primary-text-color);
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Main content styles */
+.App-content {
+  padding: var(--content-padding);
+  color: var(--primary-text-color);
+}
+
+/* Footer styles */
+.App-footer {
+  text-align: center;
+  padding: var(--content-padding);
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Course Recomendation Styles */
+
+.course-recommendations {
+  width: 80%;
+  margin: auto;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-recommendations h2 {
+  text-align: center;
+  color: #333;
+}
+
+.course-recommendations .course {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.course-recommendations .course:last-child {
+  border-bottom: none;
+}
+
+.course-recommendations .course button {
+  margin-left: 10px;
+}
