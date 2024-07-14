@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logIn } from '../../redux/userReducer'; // Updated import path
+import { logIn } from '../../redux/actions';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ function Login() {
       const response = await axios.post('http://localhost:3001/login', { email, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
-      dispatch(logIn({ email, token })); // Dispatching both email and token
+      dispatch(logIn({ email, token }));
       navigate('/dashboard');
     } catch (error) {
       setError('Login failed. Please check your email and password.');

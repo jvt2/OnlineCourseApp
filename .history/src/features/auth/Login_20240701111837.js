@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logIn } from '../../redux/userReducer'; // Updated import path
+import { logIn } from '../../redux/actions';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -16,13 +16,13 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/login', { email, password });
+      const response = await axios.post('http://localhost:3001/login', { username, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
-      dispatch(logIn({ email, token })); // Dispatching both email and token
+      dispatch(logIn({ name: username }));
       navigate('/dashboard');
     } catch (error) {
-      setError('Login failed. Please check your email and password.');
+      setError('Login failed. Please check your username and password.');
       console.error(error);
     }
   };
@@ -30,8 +30,8 @@ function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        Username:
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       </label>
       <label>
         Password:
@@ -44,7 +44,6 @@ function Login() {
 }
 
 export default Login;
-
 
 
 // This component uses React's useState hook to keep track of the username. When the form is submitted, it prevents the page from refreshing (which is the default behavior of forms) and shows an alert with the username.

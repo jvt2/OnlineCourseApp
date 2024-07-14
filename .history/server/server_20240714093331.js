@@ -106,58 +106,29 @@ app.post('/register', [
   }  
 });
 
-// Endpoint to check if email exists
-app.post('/check-email', (req, res) => {
-  const { email } = req.body;
 
-  // Check if the email exists in the database
-  const query = 'SELECT * FROM users WHERE email = ?';
-  db.query(query, [email], (error, results) => {
-    if (error) {
-      console.error('Database error:', error);
-      return res.status(500).json({ message: 'Database error' });
-    }
-
-    if (results.length === 0) {
-      return res.status(404).json({ message: 'Email not found' });
-    }
-
-    res.status(200).json({ message: 'Email found' });
-  });
-});
-
+const users = {
+  'test@example.com': { password: bcrypt.hashSync('password123', 10) } // Example user store
+};
 // LOGIN
 
 app.post('/login', async (req, res) => {
   console.log('Request Body:', req.body);
   const { email, password } = req.body;
 
-  // Check if the email exists in the database
-  const query = 'SELECT * FROM users WHERE email = ?';
-  db.query(query, [email], async (error, results) => {
-    if (error) {
-      console.error('Database error:', error);
-      return res.status(500).json({ message: 'Database error' });
-    }
+  if (!users[email]) {
+    return res.status(400).json({ message: 'User not found' });
+  }
 
-    if (results.length === 0) {
-      return res.status(400).json({ message: 'User not found' });
-    }
+  const user = users[email];
+  const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    const user = results[0];
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(400).json({ message: 'Invalid password' });
+  }
 
-    if (!isPasswordValid) {
-      return res.status(400).json({ message: 'Invalid password' });
-    }
-
-    const token = jwt.sign({ email }, 'secretkey', { expiresIn: '1h' });
-    res.status(200).json({ message: 'Login successful', token });
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  const token = jwt.sign({ email }, 'secretkey', { expiresIn: '1h' });
+  res.status(200).json({ message: 'Login successful', token });
 });
 
 // Upload resume
@@ -249,6 +220,12 @@ app.post('/courses', async (req, res, next) => {
     console.error('Error getting course recommendations:', error.message);
     res.status(500).json({ error: error.message });
   }
+});
+
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 // Enroll in a course

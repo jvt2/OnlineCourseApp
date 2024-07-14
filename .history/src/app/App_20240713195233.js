@@ -86,6 +86,8 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
+          <Navbar />
+          <Chatbot />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/register" element={<Register />} />

@@ -86,11 +86,33 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
+          <Navbar />
+          <Chatbot />
+          <header className="App-header">
+
+            <Routes>
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/register' element={<Register onRegister={handleRegister}/>}/>
+              <Route path='/login' element={<Login onLogin={handleLogin}/>}/>
+              <Route path='/course/:id' element={<CourseDetail courses={courses} onEnroll={handleEnroll} />}/>
+              <Route path='/logout' element={<Logout />} />
+              <Route path='/recommendations' element={<CourseRecommendations recommendations={recommendations} onSelect={handleSelectRecommendation} />} />
+              <Route path='/resume-upload' element={<ResumeUpload setCourseRecommendations={handleResumeUpload} />} />
+            </Routes>
+          
+            <p>
+              <code>Website under construction</code>.
+            </p>
+            <a
+              className="App-link"
+              href="https://fluxsquared.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Flux Squared
+            </a>
+          </header>
+    
         </div>
       </Router>
     </Provider>
@@ -98,4 +120,3 @@ function App() {
 }
 
 export default App;
-

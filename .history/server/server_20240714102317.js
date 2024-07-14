@@ -106,26 +106,10 @@ app.post('/register', [
   }  
 });
 
-// Endpoint to check if email exists
-app.post('/check-email', (req, res) => {
-  const { email } = req.body;
 
-  // Check if the email exists in the database
-  const query = 'SELECT * FROM users WHERE email = ?';
-  db.query(query, [email], (error, results) => {
-    if (error) {
-      console.error('Database error:', error);
-      return res.status(500).json({ message: 'Database error' });
-    }
-
-    if (results.length === 0) {
-      return res.status(404).json({ message: 'Email not found' });
-    }
-
-    res.status(200).json({ message: 'Email found' });
-  });
-});
-
+const users = {
+  'test@example.com': { password: bcrypt.hashSync('password123', 10) } // Example user store
+};
 // LOGIN
 
 app.post('/login', async (req, res) => {

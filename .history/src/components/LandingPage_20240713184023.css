@@ -1,0 +1,94 @@
+/* Define color variables for a consistent theme */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #f0f0f5;
+    --text-color: #333;
+    --white-color: #fff;
+    --button-hover-color: #0056b3;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --hero-background-color: #f0f0f5;
+    --button-text-color: #fff;
+    --button-border-color: #007bff;
+    --button-secondary-color: #fff;
+    --button-secondary-text-color: #007bff;
+  }
+  
+  /* Hero Section Styles for Landing Page */
+  .landing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--hero-background-color);
+    padding: 20px;
+  }
+  
+  .hero-section {
+    text-align: center;
+    background: var(--white-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .hero-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: var(--text-color);
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .login-button, .register-button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+  }
+  
+  .login-button {
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+  }
+  
+  .login-button:hover {
+    background-color: var(--button-hover-color);
+  }
+  
+  .register-button {
+    background-color: var(--button-secondary-color);
+    color: var(--button-secondary-text-color);
+    border: 2px solid var(--button-border-color);
+  }
+  
+  .register-button:hover {
+    background-color: var(--button-secondary-text-color);
+    color: var(--button-secondary-color);
+  }
+  
