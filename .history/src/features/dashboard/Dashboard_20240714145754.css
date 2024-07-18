@@ -1,0 +1,58 @@
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.dashboard-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.resume-upload-section,
+.recommendations-section,
+.enrolled-courses-section {
+    margin-bottom: 40px;
+}
+
+.resume-upload-section input {
+    margin-top: 20px;
+}
+
+.section-header {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.course-list,
+.recommendation-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.course-item,
+.recommendation-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 80%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.course-title,
+.recommendation-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.course-description,
+.recommendation-description {
+    font-size: 14px;
+    color: #666;
+}
+
+.browse-courses-button {
+    margin-top: 20px;
+}

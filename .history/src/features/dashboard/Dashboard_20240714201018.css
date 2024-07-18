@@ -1,0 +1,98 @@
+.sidebar {
+    position: fixed;
+    width: 132px;
+    height: 100vh;
+    left: 32px;
+    top: 0;
+    background: #0C0B0B;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Adjust as needed */
+    padding: 20px 0;
+  }
+  
+  .sidebar-blur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(12, 11, 11, 0.7);
+    filter: blur(30px);
+    border-radius: 24px;
+    z-index: 1;
+  }
+  
+  .sidebar-main {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .sidebar-logo {
+    font-family: 'Baloo Bhai';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 102px;
+    color: #FFFFFF;
+    margin-bottom: 40px; /* Adjust as needed */
+  }
+  
+  .sidebar-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px; /* Adjust as needed */
+    border-radius: 50%; /* This makes the icon container rounded */
+  }
+  
+  .icon-home {
+    width: 26px;
+    height: 26px;
+    background-image: url('/public/assets/home-icon-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .icon-graduation {
+    background-image: url('/public/assets/graduation-icon.png'); /* Example */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .icon-user {
+    background-image: url('/public/assets/user-icon.png'); /* Example */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .icon-message {
+    background-image: url('/public/assets/message-icon.png'); /* Example */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .icon-settings {
+    background-image: url('/public/assets/settings-icon.png'); /* Example */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .icon-logout {
+    background-image: url('/public/assets/logout-icon.png'); /* Example */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  

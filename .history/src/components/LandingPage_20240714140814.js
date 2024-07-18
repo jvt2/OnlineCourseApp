@@ -66,9 +66,9 @@ function LandingPage() {
   return (
     <div className="sign-in-container">
       <div className="sign-in-form">
-        <img src={`${process.env.PUBLIC_URL}/assets/flux_logo.png`} alt="Flux Logo" className="logo" />
+        <img src={`${process.env.PUBLIC_URL}/assets/new_log.png`} alt="Flux Logo" className="logo" />
         <h1>Sign in</h1>
-        <p className="subtitle">to continue to Galileo AI</p>
+        <p className="subtitle">Time to Flux</p>
         {step === 1 && (
           <>
             <button className="google-sign-in">

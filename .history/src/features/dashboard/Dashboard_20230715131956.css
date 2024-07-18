@@ -1,0 +1,28 @@
+.dashboard-container {
+    padding: 20px;
+    background-color: #705e5e;
+}
+
+.dashboard-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: calc(33.333% - 20px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
