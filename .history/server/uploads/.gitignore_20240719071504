@@ -1,0 +1,2 @@
+echo '*' > server/uploads/.gitignore
+echo '!.gitignore' >> server/uploads/.gitignore

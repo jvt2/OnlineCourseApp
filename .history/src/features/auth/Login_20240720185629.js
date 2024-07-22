@@ -1,11 +1,11 @@
 // src/features/auth/Login.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logIn } from '../../redux/userReducer'; // Ensure the path is correct
 import '../../components/common/LandingPage.css'; // Updated path
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -41,24 +41,24 @@ function Login() {
       <div className="sign-in-form">
         <img src={`${process.env.PUBLIC_URL}/assets/parent_flux.png`} alt="Flux Logo" className="logo" />
         <h1>Sign in</h1>
-        <p className="subtitle">to continue to Galileo AI</p>
+        <p className="subtitle">Log In</p>
         <form onSubmit={handleLogin}>
           <input
             type="email"
             placeholder="Email address"
-            className="input-field"
+            className="email-input" // Use the same class names as LandingPage
             value={email}
             onChange={handleEmailChange}
           />
           <input
             type="password"
             placeholder="Password"
-            className="input-field"
+            className="password-input" // Use the same class names as LandingPage
             value={password}
             onChange={handlePasswordChange}
           />
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" className="submit-button">Login</button>
+          <button type="submit" className="continue-button">Login</button> {/* Use the same class name */}
         </form>
         <p className="sign-up-link">No account? <a href="/register">Sign up</a></p>
       </div>
