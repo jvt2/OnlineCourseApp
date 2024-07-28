@@ -11,7 +11,6 @@ import LandingPage from '../components/common/LandingPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 
-
 function App() {
   const [courses, setCourses] = useState([
     {id: 1, name: 'Course 1', description: 'This is course 1'},

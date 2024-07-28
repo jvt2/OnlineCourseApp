@@ -55,7 +55,6 @@ function LandingPage() {
     setStep(1); // Go back to the email input step
   };
 
-  
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:3001/login', { email, password });
@@ -65,10 +64,6 @@ function LandingPage() {
       // Store token and navigate to dashboard or another page
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-
-      // Debugging: Check local storage
-      console.log('Token in Local Storage:', localStorage.getItem('token'));
-      console.log('User in Local Storage:', JSON.parse(localStorage.getItem('user')));
 
       // Dispatch the logIn action
       dispatch(logIn({ id: user.id, email: user.email, token }));

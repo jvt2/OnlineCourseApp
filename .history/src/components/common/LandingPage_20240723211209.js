@@ -66,10 +66,6 @@ function LandingPage() {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Debugging: Check local storage
-      console.log('Token in Local Storage:', localStorage.getItem('token'));
-      console.log('User in Local Storage:', JSON.parse(localStorage.getItem('user')));
-
       // Dispatch the logIn action
       dispatch(logIn({ id: user.id, email: user.email, token }));
 

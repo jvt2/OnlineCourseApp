@@ -297,7 +297,7 @@ app.get('/user/:id/recommended-articles', passport.authenticate('jwt', { session
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
       model: 'gpt-4o-mini',
       messages: [{"role": "system", "content": "You are a helpful assistant designed to ourput JSON."},
-        { role: "user", content: `Based on this resume: "${resumeText}" please do a websearch and recommend 5 current articles on the internet from reputable sources that would be of interest to this person.` }],
+        { role: "user", content: `Based on this resume: "${resumeText}" please recommend 5 current articles on the internet from reputable sources that would be of interest to this person.` }],
       max_tokens: 3000,
     }, {
       headers: {

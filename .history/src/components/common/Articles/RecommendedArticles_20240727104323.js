@@ -1,8 +1,9 @@
 // src/components/Articles/RecommendedArticles.js
+// src/components/Articles/RecommendedArticles.js
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Box, Typography, Card, CardContent, CardActionArea, CircularProgress, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, CircularProgress, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Carousel from 'react-material-ui-carousel';
 import '../../../features/dashboard/Dashboard.css'; // Importing the CSS file
@@ -91,23 +92,23 @@ const RecommendedArticles = () => {
         <Carousel>
           {articles.map((article, index) => (
             <Card key={index} className={classes.card}>
-              <CardActionArea href={article.link} target="_blank" rel="noopener noreferrer" className={classes.articleLink}>
-                {article.image && (
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className={classes.cardMedia}
-                  />
-                )}
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="h6">
+              {article.image && (
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className={classes.cardMedia}
+                />
+              )}
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h6">
+                  <a href={article.link} target="_blank" rel="noopener noreferrer" className={classes.articleLink}>
                     {article.title}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {article.summary}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+                  </a>
+                </Typography>
+                <Typography variant="body1">
+                  {article.summary}
+                </Typography>
+              </CardContent>
             </Card>
           ))}
         </Carousel>

@@ -11,6 +11,8 @@ import LandingPage from '../components/common/LandingPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 
+const passport = require('passport');
+require('./passport-config')(passport); 
 
 function App() {
   const [courses, setCourses] = useState([

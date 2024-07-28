@@ -22,6 +22,7 @@ db.query('SELECT 1 + 1 AS solution', (error, results) => {
 });
 
 module.exports = function(passport) {
+  console.log('JWT_SECRET:', process.env.JWT_SECRET);
   // JWT Strategy
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

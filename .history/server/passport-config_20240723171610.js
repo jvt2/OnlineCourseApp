@@ -7,20 +7,6 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config(); // Ensure this is at the top to load env variables
 
-console.log("Loaded passport-config.js");
-
-// Log JWT_SECRET to confirm it's accessible
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
-
-// Test database connection
-db.query('SELECT 1 + 1 AS solution', (error, results) => {
-  if (error) {
-    console.log("Error connecting to database:", error);
-  } else {
-    console.log("Database connected. Result:", results);
-  }
-});
-
 module.exports = function(passport) {
   // JWT Strategy
   const opts = {
@@ -29,7 +15,6 @@ module.exports = function(passport) {
   };
 
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-    console.log("JWT Strategy invoked with payload:", jwt_payload);
     const query = 'SELECT * FROM users WHERE id = ?';
     db.query(query, [jwt_payload.id], (error, results) => {
       if (error) {

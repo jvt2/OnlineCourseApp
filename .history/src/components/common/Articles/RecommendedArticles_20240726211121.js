@@ -1,10 +1,12 @@
 // src/components/Articles/RecommendedArticles.js
+// src/components/Articles/RecommendedArticles.js
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Box, Typography, Card, CardContent, CardActionArea, CircularProgress, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, CircularProgress, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Carousel from 'react-material-ui-carousel';
+import { parseArticlesResponse } from '../../../utils/parsers'; // Ensure this import is correct
 import '../../../features/dashboard/Dashboard.css'; // Importing the CSS file
 
 const useStyles = makeStyles(() => ({
@@ -37,7 +39,7 @@ const useStyles = makeStyles(() => ({
 
 const RecommendedArticles = () => {
   const classes = useStyles();
-  const [articles, setArticles] = useState([]); // Initialize as an empty array
+  const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const userId = useSelector((state) => state.user.id);
@@ -51,13 +53,9 @@ const RecommendedArticles = () => {
         },
       });
       console.log('API response:', response.data);
-
-      // Ensure response data is an array
-      if (response.data.articles) {
-        setArticles(response.data.articles.slice(0, 5));
-      } else {
-        setError('Unexpected API response format');
-      }
+      const parsedArticles = parseArticlesResponse(response.data);
+      console.log('Parsed articles:', parsedArticles);
+      setArticles(parsedArticles.slice(0, 5));
     } catch (error) {
       console.error('Error fetching recommended articles:', error);
       setError('Error fetching recommended articles');
@@ -91,23 +89,23 @@ const RecommendedArticles = () => {
         <Carousel>
           {articles.map((article, index) => (
             <Card key={index} className={classes.card}>
-              <CardActionArea href={article.link} target="_blank" rel="noopener noreferrer" className={classes.articleLink}>
-                {article.image && (
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className={classes.cardMedia}
-                  />
-                )}
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="h6">
+              {article.image && (
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className={classes.cardMedia}
+                />
+              )}
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h6">
+                  <a href={article.url} target="_blank" rel="noopener noreferrer" className={classes.articleLink}>
                     {article.title}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {article.summary}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+                  </a>
+                </Typography>
+                <Typography variant="body1">
+                  {article.description}
+                </Typography>
+              </CardContent>
             </Card>
           ))}
         </Carousel>

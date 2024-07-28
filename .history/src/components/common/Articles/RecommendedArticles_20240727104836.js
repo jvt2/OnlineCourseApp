@@ -1,8 +1,9 @@
 // src/components/Articles/RecommendedArticles.js
+// src/components/Articles/RecommendedArticles.js
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Box, Typography, Card, CardContent, CardActionArea, CircularProgress, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, CircularProgress, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Carousel from 'react-material-ui-carousel';
 import '../../../features/dashboard/Dashboard.css'; // Importing the CSS file
@@ -15,6 +16,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
     backgroundColor: 'var(--secondary-color)',
     color: 'var(--text-color)',
+    textDecoration: 'none', // Ensures the link doesn't have an underline
   },
   cardMedia: {
     height: 140,
@@ -90,8 +92,8 @@ const RecommendedArticles = () => {
       {articles.length > 0 ? (
         <Carousel>
           {articles.map((article, index) => (
-            <Card key={index} className={classes.card}>
-              <CardActionArea href={article.link} target="_blank" rel="noopener noreferrer" className={classes.articleLink}>
+            <a href={article.link} target="_blank" rel="noopener noreferrer" key={index} className={classes.articleLink}>
+              <Card className={classes.card}>
                 {article.image && (
                   <img
                     src={article.image}
@@ -107,8 +109,8 @@ const RecommendedArticles = () => {
                     {article.summary}
                   </Typography>
                 </CardContent>
-              </CardActionArea>
-            </Card>
+              </Card>
+            </a>
           ))}
         </Carousel>
       ) : (
@@ -122,3 +124,4 @@ const RecommendedArticles = () => {
 };
 
 export default RecommendedArticles;
+

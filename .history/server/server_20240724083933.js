@@ -228,8 +228,6 @@ const getResumeText = async (resumePath) => {
   return text;
 };
 
-//Course recommendation Parse
-
 const parseOpenAIResponse = (messageContent) => {
   const lines = messageContent.split('\n\n');
   return lines.map((line, index) => {
@@ -244,7 +242,6 @@ const parseOpenAIResponse = (messageContent) => {
     return { id: index, title: titleText, description: descriptionText, url: url };
   }).filter(article => article.title && article.description);
 };
-
 
 // Endpoint for OpenAI course recommendations
 app.post('/courses', async (req, res, next) => {
@@ -296,28 +293,17 @@ app.get('/user/:id/recommended-articles', passport.authenticate('jwt', { session
     console.log('userID', userId );
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
       model: 'gpt-4o-mini',
-      messages: [{"role": "system", "content": "You are a helpful assistant designed to ourput JSON."},
-        { role: "user", content: `Based on this resume: "${resumeText}" please do a websearch and recommend 5 current articles on the internet from reputable sources that would be of interest to this person.` }],
-      max_tokens: 3000,
+      messages: [{ role: "user", content: `Based on this resume: "${resumeText}" please recommend current articles that would be of interest to this person.` }],
+      max_tokens: 3000
     }, {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       }
     });
-    console.log('OpenAI API Response:', response.data);
 
-    // Extract the JSON string and parse it
-    const messageContent = response.data.choices[0].message.content;
-    const jsonStringMatch = messageContent.match(/```json([\s\S]*)```/);
-    if (!jsonStringMatch) {
-      throw new Error('Failed to extract JSON string from the API response');
-    }
-    const jsonString = jsonStringMatch[1].trim();
-    const articles = JSON.parse(jsonString).recommended_articles;
-    console.log('Articles:', articles);
-
-    res.json({ articles }); // Send the parsed articles to the client
+    const articles = parseOpenAIResponse(response.data.choices[0].message.content);
+    res.status(200).json(articles);
     console.log('Article recommendations sent successfully for user:', userId);
   } catch (error) {
     console.error('Error getting article recommendations:', error.message);
