@@ -40,7 +40,6 @@
     "react-router-dom": "^6.12.1",
     "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
-    "@reduxjs/toolkit": "^1.6.1",
     "styled-components": "^6.0.4",
     "web-vitals": "^2.1.4"
   },
