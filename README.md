@@ -91,4 +91,55 @@ and connect them with <strong>high-quality learning platforms</strong>.
 <pre><code>SHOW DATABASES;</code></pre>
 
 <h3>Select Database</h3>
-<pre><code>U
+<pre><code>USE your_database_name;</code></pre>
+
+<h3>Show Tables</h3>
+<pre><code>SHOW TABLES;</code></pre>
+
+<h3>View Table Data</h3>
+<pre><code>SELECT * FROM table_name;</code></pre>
+
+---
+
+<h2>📜 Available Scripts (React)</h2>
+
+<h3>Start Development</h3>
+<pre><code>npm start</code></pre>
+
+<h3>Run Tests</h3>
+<pre><code>npm test</code></pre>
+
+<h3>Build for Production</h3>
+<pre><code>npm run build</code></pre>
+
+<h3>Eject (Advanced)</h3>
+<pre><code>npm run eject</code></pre>
+
+<p><strong>⚠️ Warning:</strong> This action is irreversible.</p>
+
+---
+
+<h2>📈 Why This Project Matters</h2>
+<ul>
+  <li>Helps users <strong>choose the right courses</strong>, not just more courses</li>
+  <li>Reduces wasted <strong>time and money</strong> on irrelevant learning</li>
+  <li>Builds an <strong>AI-powered EdTech product</strong> with real monetization potential</li>
+  <li>Creates a <strong>career accelerator</strong> for professionals</li>
+</ul>
+
+---
+
+<h2>📚 Learn More</h2>
+<ul>
+  <li><a href="https://create-react-app.dev/" target="_blank">Create React App Documentation</a></li>
+  <li><a href="https://react.dev/" target="_blank">React Documentation</a></li>
+</ul>
+
+---
+
+<h2>🤝 Contribute or Partner</h2>
+<p>
+If you're a <strong>developer, EdTech company, course provider, sponsor, or investor</strong>, 
+feel free to open an issue or reach out.
+</p>
+
