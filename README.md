@@ -1,167 +1,94 @@
 # Getting Started with Create React App
-🎓 Online Course Recommendation App
+<h1>🎓 Online Course Recommendation App</h1>
+<p><strong>AI-powered course recommendations based on CVs</strong></p>
 
-AI-powered course recommendations based on CVs
+<hr/>
 
-This project is an online course platform where users can upload their CV, and the system uses an LLM (Large Language Model) to recommend the most relevant courses based on their skills, experience, and career goals.
+<h2>💡 Project Vision</h2>
+<p>
+This project is an <strong>online course platform</strong> where users can 
+<strong>upload their CV</strong>, and an <strong>LLM (Large Language Model)</strong> 
+analyzes their experience, skills, and career goals to recommend the 
+<strong>most relevant courses</strong>.
+</p>
 
-The goal is to help candidates upskill faster while creating a monetization channel through sponsored course providers such as Coursera, Platzi, and other learning platforms.
+<p>
+The mission is to help professionals <strong>upskill faster, avoid irrelevant courses</strong>, 
+and connect them with <strong>high-quality learning platforms</strong>.
+</p>
 
-💡 Project Vision
+---
 
-Many professionals don’t know which courses will actually improve their careers.
+<h2>💰 Monetization Strategy</h2>
+<ul>
+  <li>Sponsored course placements from <strong>Coursera, Platzi, and other EdTech platforms</strong></li>
+  <li>Affiliate partnerships with course providers</li>
+  <li>Premium plans for career guidance and advanced recommendations</li>
+</ul>
 
-This app solves that by:
+---
 
-Analyzing a candidate’s CV
+<h2>⚙️ How It Works</h2>
+<ol>
+  <li>User uploads their <strong>CV</strong></li>
+  <li>The backend extracts <strong>skills, roles, and experience</strong></li>
+  <li>An <strong>LLM evaluates the candidate profile</strong></li>
+  <li>The system generates <strong>personalized course recommendations</strong></li>
+  <li>The user receives a <strong>tailored learning path</strong></li>
+</ol>
 
-Understanding their skills, background, and gaps
+---
 
-Using AI to recommend personalized courses
+<h2>🧩 Tech Stack</h2>
+<ul>
+  <li><strong>Frontend:</strong> React (Create React App)</li>
+  <li><strong>Backend:</strong> Node.js + Express</li>
+  <li><strong>Database:</strong> MySQL</li>
+  <li><strong>AI Layer:</strong> LLM-powered recommendation engine</li>
+  <li><strong>State Management:</strong> Redux Toolkit</li>
+  <li><strong>Auth & Security:</strong> bcryptjs</li>
+  <li><strong>API Parsing:</strong> body-parser</li>
+</ul>
 
-Connecting them with high-quality course providers
+---
 
-Future Monetization Strategy
+<h2>📦 Install Dependencies</h2>
 
-Sponsored recommendations from Platzi, Coursera, and other platforms
+<h3>Backend</h3>
+<pre><code>npm install express mysql2 bcryptjs body-parser cors dotenv</code></pre>
 
-Affiliate partnerships with online education providers
+<h3>Frontend</h3>
+<pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
 
-Premium plans for advanced career guidance
+---
 
-⚙️ How It Works
+<h2>🚀 How to Start the Test Environment</h2>
 
-A user uploads their CV
+<h3>1️⃣ Start MySQL Server</h3>
+<p>Ensure your <strong>MySQL server is running</strong>.</p>
 
-The backend extracts structured data (skills, roles, experience)
+<h3>2️⃣ Start Express Backend</h3>
+<pre><code>node server.js</code></pre>
+<p>Make sure there are <strong>no errors in the console</strong>.</p>
 
-An LLM evaluates the profile
+<h3>3️⃣ Start React Frontend</h3>
+<pre><code>npm start</code></pre>
 
-The system generates top course recommendations
+<p>Open in your browser:</p>
+<pre><code>http://localhost:3000</code></pre>
 
-The user sees personalized learning paths
+---
 
-🧩 Tech Stack
+<h2>🗄️ MySQL Shell — Connect & Query Guide</h2>
 
-Frontend: React (Create React App)
+<h3>Connect to MySQL Shell</h3>
+<pre><code>\connect your_username@localhost</code></pre>
 
-Backend: Node.js + Express
+<h3>Switch to SQL Mode</h3>
+<pre><code>\sql</code></pre>
 
-Database: MySQL
+<h3>Show Databases</h3>
+<pre><code>SHOW DATABASES;</code></pre>
 
-AI Layer: LLM-powered recommendation engine
-
-State Management: Redux Toolkit
-
-Authentication: bcryptjs
-
-API Parsing: body-parser
-
-📦 Install Dependencies
-Backend
-npm install express mysql2 bcryptjs body-parser cors dotenv
-
-Frontend
-npm install @reduxjs/toolkit react-redux
-
-🚀 How to Start the Test Environment
-1️⃣ Start MySQL Server
-
-Ensure your MySQL server is running.
-
-2️⃣ Start the Express Backend
-node server.js
-
-
-Confirm there are no errors in the terminal.
-
-3️⃣ Start the React Frontend
-npm start
-# or
-yarn start
-
-
-Open:
-
-http://localhost:3000
-
-🗄️ MySQL Shell — Connect & Query Guide
-Connect to MySQL Shell
-\connect your_username@localhost
-
-Switch to SQL Mode
-\sql
-
-Show Databases
-SHOW DATABASES;
-
-Select Database
-USE your_database_name;
-
-Show Tables
-SHOW TABLES;
-
-View Table Data
-SELECT * FROM table_name;
-
-📜 Available Scripts (React)
-Start Development
-npm start
-
-Run Tests
-npm test
-
-Build Production App
-npm run build
-
-Eject (Advanced)
-npm run eject
-
-
-⚠️ This action is irreversible.
-
-🛠️ Setup Notes
-
-Install bcryptjs and body-parser for backend support
-
-Install Redux Toolkit if using global state
-
-Create MySQL tables manually if missing
-
-Configure .env with DB credentials
-
-Ensure MySQL user permissions are correct
-
-📈 Why This Project Matters
-
-This project aims to:
-
-Help people choose the right courses, not just more courses
-
-Reduce wasted time and money on irrelevant learning
-
-Create a career accelerator powered by AI
-
-Build a scalable EdTech product with real monetization potential
-
-📚 Learn More
-
-Create React App Docs
-https://create-react-app.dev/
-
-React Docs
-https://react.dev/
-
-🤝 Want to Contribute or Partner?
-
-If you’re a:
-
-Developer
-
-EdTech company
-
-Course provider (Coursera, Platzi, etc.)
-
-Sponsor or investor
-
-Feel free to open an issue or reach out.
+<h3>Select Database</h3>
+<pre><code>U
