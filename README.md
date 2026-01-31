@@ -1,105 +1,167 @@
 # Getting Started with Create React App
+🎓 Online Course Recommendation App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AI-powered course recommendations based on CVs
 
-## Available Scripts
-How to start online-course-app test environment
+This project is an online course platform where users can upload their CV, and the system uses an LLM (Large Language Model) to recommend the most relevant courses based on their skills, experience, and career goals.
 
-Start the Server: First, make sure your MySQL server is running. Then, start your Express server by running node server.js in your terminal. Make sure there are no errors in the console.
+The goal is to help candidates upskill faster while creating a monetization channel through sponsored course providers such as Coursera, Platzi, and other learning platforms.
 
-Start the React App: In a separate terminal window, navigate to your React app directory and start it using npm start or yarn start. This should open your app in a web browser.
+💡 Project Vision
 
-to connect SQL Shell
-TYPE
+Many professionals don’t know which courses will actually improve their careers.
 
- MySQL  JS > '\connect your_username@localhost'
+This app solves that by:
 
-to change to out of js into sql
+Analyzing a candidate’s CV
 
+Understanding their skills, background, and gaps
+
+Using AI to recommend personalized courses
+
+Connecting them with high-quality course providers
+
+Future Monetization Strategy
+
+Sponsored recommendations from Platzi, Coursera, and other platforms
+
+Affiliate partnerships with online education providers
+
+Premium plans for advanced career guidance
+
+⚙️ How It Works
+
+A user uploads their CV
+
+The backend extracts structured data (skills, roles, experience)
+
+An LLM evaluates the profile
+
+The system generates top course recommendations
+
+The user sees personalized learning paths
+
+🧩 Tech Stack
+
+Frontend: React (Create React App)
+
+Backend: Node.js + Express
+
+Database: MySQL
+
+AI Layer: LLM-powered recommendation engine
+
+State Management: Redux Toolkit
+
+Authentication: bcryptjs
+
+API Parsing: body-parser
+
+📦 Install Dependencies
+Backend
+npm install express mysql2 bcryptjs body-parser cors dotenv
+
+Frontend
+npm install @reduxjs/toolkit react-redux
+
+🚀 How to Start the Test Environment
+1️⃣ Start MySQL Server
+
+Ensure your MySQL server is running.
+
+2️⃣ Start the Express Backend
+node server.js
+
+
+Confirm there are no errors in the terminal.
+
+3️⃣ Start the React Frontend
+npm start
+# or
+yarn start
+
+
+Open:
+
+http://localhost:3000
+
+🗄️ MySQL Shell — Connect & Query Guide
+Connect to MySQL Shell
+\connect your_username@localhost
+
+Switch to SQL Mode
 \sql
 
-to show the tables in the db
+Show Databases
+SHOW DATABASES;
 
-show tables;
+Select Database
+USE your_database_name;
 
-Now to view the table
+Show Tables
+SHOW TABLES;
 
-Run the following SQL query:
+View Table Data
+SELECT * FROM table_name;
 
-SELECT * FROM mysql.table_name;
+📜 Available Scripts (React)
+Start Development
+npm start
 
-This query will return all of the users in the MySQL user table.
+Run Tests
+npm test
 
-To check for a specific user, you can use the following SQL query:
+Build Production App
+npm run build
 
-SELECT * FROM mysql.user WHERE user='username';
+Eject (Advanced)
+npm run eject
 
-Replace username with the name of the user you want to check.
 
-To filter the results, you can use the WHERE clause to specify the columns you want to return. For example, the following query will return the username, host, and password for all users:
+⚠️ This action is irreversible.
 
-SELECT user, host, password FROM mysql.user;
-In the project directory, you can run:
+🛠️ Setup Notes
 
-### `npm start`
+Install bcryptjs and body-parser for backend support
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Install Redux Toolkit if using global state
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Create MySQL tables manually if missing
 
-### `npm test`
+Configure .env with DB credentials
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ensure MySQL user permissions are correct
 
-### `npm run build`
+📈 Why This Project Matters
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project aims to:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Help people choose the right courses, not just more courses
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Reduce wasted time and money on irrelevant learning
 
-### `npm run eject`
+Create a career accelerator powered by AI
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Build a scalable EdTech product with real monetization potential
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+📚 Learn More
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Create React App Docs
+https://create-react-app.dev/
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+React Docs
+https://react.dev/
 
-## Learn More
+🤝 Want to Contribute or Partner?
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you’re a:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Developer
 
-### Code Splitting
+EdTech company
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Course provider (Coursera, Platzi, etc.)
 
-### Analyzing the Bundle Size
+Sponsor or investor
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to open an issue or reach out.
